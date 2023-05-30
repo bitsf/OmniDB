@@ -1009,7 +1009,7 @@ button.close {
 }
 .omnidb__connections__card-list--rows .card-body-details,
 .omnidb__connections__card-list--rows .card-body-buttons {
-  display: flex;
+  display: block;
   align-items: center;
   flex-direction: row;
   text-align: left;
