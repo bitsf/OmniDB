@@ -4957,7 +4957,30 @@ function getDatabasesPostgresql(node) {
 
             for (i = 0; i < p_return.v_data.length; i++) {
 
-                v_node = node.createChildNode(p_return.v_data[i].v_name,
+                if (v_connTabControl.selectedTab.tag.selectedDatabase ==
+                    p_return.v_data[i].v_name.replace(/"/g, '')) {
+                    v_node = node.createChildNode(p_return.v_data[i].v_name,
+                    false, 'fas node-all fa-database node-database', {
+                        type: 'database',
+                        database: p_return.v_data[i].v_name.replace(
+                            /"/g, ''),
+                        oid: p_return.v_data[i].v_oid
+                    }, 'cm_database', null, false);
+                    v_node.setNodeBold();
+                    v_connTabControl.selectedTab.tag.selectedDatabaseNode =
+                        v_node;
+
+                    v_node.createChildNode('', true,
+                    'node-spin', null, null,
+                    null, false);
+	        }
+            }
+
+            for (i = 0; i < p_return.v_data.length; i++) {
+
+                if (v_connTabControl.selectedTab.tag.selectedDatabase !=
+                    p_return.v_data[i].v_name.replace(/"/g, '')) {
+                    v_node = node.createChildNode(p_return.v_data[i].v_name,
                     false, 'fas node-all fa-database node-database', {
                         type: 'database',
                         database: p_return.v_data[i].v_name.replace(
@@ -4965,17 +4988,10 @@ function getDatabasesPostgresql(node) {
                         oid: p_return.v_data[i].v_oid
                     }, 'cm_database', null, false);
 
-                if (v_connTabControl.selectedTab.tag.selectedDatabase ==
-                    p_return.v_data[i].v_name.replace(/"/g, '')) {
-                    v_node.setNodeBold();
-                    v_connTabControl.selectedTab.tag.selectedDatabaseNode =
-                        v_node;
-                }
-
-                v_node.createChildNode('', true,
+                    v_node.createChildNode('', true,
                     'node-spin', null, null,
                     null, false);
-
+	        }
             }
 
             node.drawChildNodes();
